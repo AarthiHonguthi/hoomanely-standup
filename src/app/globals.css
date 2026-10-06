@@ -1,0 +1,198 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Design tokens built from the Hoomanely brand palette:
+ *   Plasma Haze   (cool neutral, primary)   50 #f0f0f3 … 900 #2b2c37
+ *   Sensor Reef   (teal, secondary)         50 #eaf1f1 … 900 #122f30
+ *   Baseline Gold (warm, secondary)         50 #f1ebe7 … 900 #321604
+ *   Carbon Matrix (neutral greys)           50 #ececec … 900 #1a1b1b
+ *   States        Error #BE382D / #E0675B, Success #2A732D / #4CA152,
+ *                 Warning #C25E00 / #F0A23E (light / dark mode)
+ * Light mode: white surfaces on a Plasma Haze 50 canvas.
+ * Dark mode: Carbon Matrix surfaces with softened, lighter accents.
+ */
+:root {
+  color-scheme: light;
+  --bg: #f0f0f3;            /* plasma haze 50 */
+  --surface: #ffffff;
+  --surface-2: #f6f6f8;
+  --surface-3: #e5e5ea;
+  --border: #e1e2e8;
+  --border-strong: #d0d1d9; /* plasma haze 100 */
+  --text: #2b2c37;          /* plasma haze 900 */
+  --text-muted: #494b5e;    /* plasma haze 700 */
+  --text-subtle: #676984;   /* plasma haze 500 */
+  --primary: #5e6078;       /* plasma haze 600 */
+  --primary-hover: #494b5e; /* plasma haze 700 */
+  --primary-fg: #ffffff;
+  --primary-soft: #f0f0f3;  /* plasma haze 50 */
+  --primary-soft-fg: #494b5e;
+  --ring: #676984;
+  --brand-mark: #676984;    /* plasma haze 500 */
+  --overlay: rgb(43 44 55 / 0.32);
+  --shadow: 0 1px 2px rgb(43 44 55 / 0.05), 0 1px 1px rgb(43 44 55 / 0.03);
+  --shadow-lg: 0 12px 32px -8px rgb(43 44 55 / 0.2), 0 2px 6px rgb(43 44 55 / 0.06);
+
+  /* Accent families (avatars, goals, statuses) */
+  --plasma-bg: #f0f0f3; --plasma-fg: #494b5e; --plasma-dot: #5e6078;
+  --reef-bg: #eaf1f1;   --reef-fg: #1f5051;   --reef-dot: #568d8e;
+  --gold-bg: #f1ebe7;   --gold-fg: #6c2f09;   --gold-dot: #a4775b;
+  --carbon-bg: #ececec; --carbon-fg: #3f4041; --carbon-dot: #b9bac6;
+  --moss-bg: #e7f1e7;   --moss-fg: #2a732d;   --moss-dot: #4ca152;
+
+  /* States. Warning text is darkened from #C25E00 to keep 4.5:1 on its tint. */
+  --error-bg: #f8e6e4;   --error-fg: #be382d;   --error-dot: #e0675b;
+  --success-bg: #e7f1e7; --success-fg: #2a732d; --success-dot: #4ca152;
+  --warning-bg: #fbeee2; --warning-fg: #9a4700; --warning-dot: #c25e00;
+  --neutral-bg: #ececec; --neutral-fg: #656667; --neutral-dot: #a7a7a8;
+
+  /* Charts: one data hue, checked for chroma and contrast against the surface. */
+  --chart-1: #008b9c;
+}
+
+.dark {
+  color-scheme: dark;
+  --bg: #1a1b1b;            /* carbon matrix 900 */
+  --surface: #232324;       /* carbon matrix 800 */
+  --surface-2: #2d2d2e;     /* carbon matrix 700 */
+  --surface-3: #393a3b;     /* carbon matrix 600 */
+  --border: #333435;
+  --border-strong: #3f4041; /* carbon matrix 500 */
+  --text: #ececec;          /* carbon matrix 50 */
+  --text-muted: #c3c4c4;    /* carbon matrix 100 */
+  --text-subtle: #a7a7a8;   /* carbon matrix 200 */
+  --primary: #b9bac6;       /* plasma haze 200 */
+  --primary-hover: #d0d1d9; /* plasma haze 100 */
+  --primary-fg: #1a1b1b;
+  --primary-soft: #2b2c37;  /* plasma haze 900 */
+  --primary-soft-fg: #d0d1d9;
+  --ring: #999bad;          /* plasma haze 300 */
+  --brand-mark: #999bad;    /* plasma haze 300: readable on charcoal */
+  --overlay: rgb(0 0 0 / 0.6);
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.35);
+  --shadow-lg: 0 16px 40px -8px rgb(0 0 0 / 0.65), 0 0 0 1px rgb(255 255 255 / 0.04);
+
+  --plasma-bg: #2b2c37; --plasma-fg: #d0d1d9; --plasma-dot: #b9bac6;
+  --reef-bg: #122f30;   --reef-fg: #9ebdbe;   --reef-dot: #729fa1;
+  --gold-bg: #321604;   --gold-fg: #d5c0b3;   --gold-dot: #c0a28e;
+  --carbon-bg: #2d2d2e; --carbon-fg: #c3c4c4; --carbon-dot: #656667;
+  --moss-bg: #1b2b1c;   --moss-fg: #86c58a;   --moss-dot: #4ca152;
+
+  --error-bg: #3a1d1a;   --error-fg: #eb8a80;   --error-dot: #e0675b;
+  --success-bg: #1b2b1c; --success-fg: #86c58a; --success-dot: #4ca152;
+  --warning-bg: #35250f; --warning-fg: #f0a23e; --warning-dot: #f0a23e;
+  --neutral-bg: #2d2d2e; --neutral-fg: #a7a7a8; --neutral-dot: #656667;
+
+  --chart-1: #22a6b3;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-text: var(--text);
+  --color-muted: var(--text-muted);
+  --color-subtle: var(--text-subtle);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-fg: var(--primary-fg);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-soft-fg: var(--primary-soft-fg);
+  --color-ring: var(--ring);
+  --color-brand-mark: var(--brand-mark);
+  --color-overlay: var(--overlay);
+  --shadow-card: var(--shadow);
+  --shadow-pop: var(--shadow-lg);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  --radius-card: 0.75rem;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    background: var(--bg);
+  }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  ::selection {
+    background: var(--primary-soft);
+  }
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.6;
+    cursor: pointer;
+  }
+  .dark input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.85);
+  }
+}
+
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slide-in-right { from { transform: translateX(24px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes pop-in { from { transform: translateY(6px) scale(0.985); opacity: 0; } to { transform: none; opacity: 1; } }
+
+@utility animate-fade-in { animation: fade-in 140ms ease-out; }
+@utility animate-slide-in-right { animation: slide-in-right 180ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+@utility animate-pop-in { animation: pop-in 160ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+
+/* Raana, the assistant's dog: rises from behind the button once on load. */
+@keyframes raana-rise { from { translate: -50% 100%; opacity: 0; } to { translate: -50% 0; opacity: 1; } }
+@utility animate-raana-rise { animation: raana-rise 520ms cubic-bezier(0.34, 1.56, 0.64, 1) 400ms both; }
+
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
+}
+
+/* ── My pace: the day's walk ───────────────────────────────────────────── */
+.walker g { transform-box: view-box; }
+.walker-leg { transform-origin: 42px 72px; }
+.walker-arm { transform-origin: 41px 44px; }
+.walker-dog-leg { transform-box: fill-box; transform-origin: 50% 0%; }
+.walker-tail { transform-origin: 108px 80px; animation: walk-wag 1.4s ease-in-out infinite; }
+.walker-dog-head { transform-origin: 134px 76px; }
+
+.walker--walking .walker-leg--a { animation: walk-swing 0.5s ease-in-out infinite alternate; }
+.walker--walking .walker-leg--b { animation: walk-swing 0.5s ease-in-out infinite alternate-reverse; }
+.walker--walking .walker-arm--back { animation: walk-arm 0.5s ease-in-out infinite alternate-reverse; }
+.walker--walking .walker-arm--leash { animation: walk-arm-small 0.5s ease-in-out infinite alternate; }
+.walker--walking .walker-person { animation: walk-bob 0.25s ease-in-out infinite alternate; }
+/* The dog glides along with the walker; only its tail wags faster. */
+.walker--walking .walker-tail { animation-duration: 0.35s; }
+
+/* Day done: the person waves, the dog hops twice and looks up. */
+.walker--celebrate .walker-arm--back { animation: walk-wave 0.9s ease-in-out 2; }
+.walker--celebrate .walker-dog { animation: walk-hop 0.5s ease-out 2; }
+.walker--celebrate .walker-dog-head { transform: rotate(-8deg); }
+.walker--celebrate .walker-tail { animation-duration: 0.25s; }
+
+.walk-next { animation: walk-board-bob 1.8s ease-in-out infinite; }
+.walk-cloud { animation: walk-cloud linear infinite; will-change: transform; }
+.walk-star { animation: walk-twinkle 2.6s ease-in-out infinite; }
+
+@keyframes walk-swing { from { transform: rotate(-22deg); } to { transform: rotate(22deg); } }
+@keyframes walk-arm { from { transform: rotate(-24deg); } to { transform: rotate(18deg); } }
+@keyframes walk-arm-small { from { transform: rotate(-6deg); } to { transform: rotate(6deg); } }
+@keyframes walk-paw { from { transform: rotate(-24deg); } to { transform: rotate(24deg); } }
+@keyframes walk-bob { from { transform: translateY(0); } to { transform: translateY(-2px); } }
+@keyframes walk-wag { 0%, 100% { transform: rotate(-14deg); } 50% { transform: rotate(14deg); } }
+@keyframes walk-wave { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(150deg); } 50% { transform: rotate(125deg); } 70% { transform: rotate(150deg); } }
+@keyframes walk-hop { 0%, 100% { transform: translateY(0); } 45% { transform: translateY(-12px); } }
+@keyframes walk-board-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+@keyframes walk-cloud { from { transform: translateX(-180px); } to { transform: translateX(1500px); } }
+@keyframes walk-twinkle { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
